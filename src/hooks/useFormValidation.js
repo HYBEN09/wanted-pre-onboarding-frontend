@@ -6,8 +6,8 @@ const useFormValidation = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const validateEmail = () => {
-    if (!email.includes('@')) {
+  const validateEmail = (inputEmail) => {
+    if (!inputEmail.includes('@')) {
       setEmailError('이메일 형식이 올바르지 않습니다.');
       return false;
     } else {
@@ -16,8 +16,8 @@ const useFormValidation = () => {
     }
   };
 
-  const validatePassword = () => {
-    if (password.length < 8) {
+  const validatePassword = (inputPassword) => {
+    if (inputPassword.length < 8) {
       setPasswordError('비밀번호는 8자 이상이어야 합니다.');
       return false;
     } else {
