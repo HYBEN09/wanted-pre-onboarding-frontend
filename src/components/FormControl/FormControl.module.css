@@ -1,0 +1,24 @@
+.control {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.errorMessage{
+  font-size: 14px;
+  color: #ff0000;
+  font-weight: 700;
+  padding-top: 8px;
+}
