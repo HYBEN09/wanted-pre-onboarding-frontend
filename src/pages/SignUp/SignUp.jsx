@@ -1,34 +1,43 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classes from '../SignIn/SignIn.module.css';
 import Button from '../../components/Button/Button';
 import FormControl from '../../components/FormControl/FormControl';
+import useFormValidation from '../../hooks/useFormValidation';
 
 function SignUp() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const navigate = useNavigate();
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    emailError,
+    passwordError,
+    validateEmail,
+    validatePassword,
+  } = useFormValidation();
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    validateEmail(); // 실시간 검사 추가
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    validatePassword(); // 실시간 검사 추가
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 이메일 유효성 검사 (@ 포함)
-    if (!email.includes('@')) {
-      setEmailError('이메일 형식이 올바르지 않습니다.');
-      return;
-    } else {
-      setEmailError('');
-    }
 
-    // 비밀번호 유효성 검사 (8자 이상)
-    if (password.length < 8) {
-      setPasswordError('비밀번호는 8자 이상이어야 합니다.');
-      return;
-    } else {
-      setPasswordError('');
-    }
+    const isEmailValid = validateEmail();
+    const isPasswordValid = validatePassword();
 
-    console.log('submitted', { email, password });
-    // 회원가입 처리 로직 구현
+    if (isEmailValid && isPasswordValid) {
+      console.log('submitted', { email, password });
+
+      navigate('/signin');
+    }
   };
 
   const isDisabled = !email.includes('@') || password.length < 8;
@@ -43,7 +52,7 @@ function SignUp() {
             type="email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             required
             errorMessage={emailError}
           />
@@ -52,7 +61,7 @@ function SignUp() {
             type="password"
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             required
             errorMessage={passwordError}
           />
