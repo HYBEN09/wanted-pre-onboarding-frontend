@@ -31,6 +31,8 @@ function SignUp() {
     // 회원가입 처리 로직 구현
   };
 
+  const isDisabled = !email.includes('@') || password.length < 8;
+
   return (
     <div className={classes.container}>
       <div className={classes.formWrapper}>
@@ -54,7 +56,7 @@ function SignUp() {
             required
             errorMessage={passwordError}
           />
-          <Button type="submit" testId="signup-button">
+          <Button type="submit" testId="signup-button" disabled={isDisabled}>
             회원가입
           </Button>
         </form>
