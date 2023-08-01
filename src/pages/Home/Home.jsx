@@ -1,6 +1,6 @@
 import classes from './Home.module.css';
 function Home() {
-  return <div className={classes.home}>🌈 원티드 프리온보딩</div>;
+  return <h1 className={classes.home}>🌈 원티드 프리온보딩</h1>;
 }
 
 export default Home;
