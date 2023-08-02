@@ -1,7 +1,14 @@
 import classes from './FormControl.module.css';
 
-
-function FormControl({ label, type, value, onChange, id, required, errorMessage }) {
+function FormControl({
+  label,
+  type,
+  value,
+  onChange,
+  id,
+  required,
+  errorMessage,
+}) {
   return (
     <div className={classes.control}>
       <label htmlFor={id}>{label}</label>

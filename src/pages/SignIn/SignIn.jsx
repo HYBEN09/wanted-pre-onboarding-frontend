@@ -1,45 +1,42 @@
+import { useNavigate } from 'react-router-dom';
 import classes from './SignIn.module.css';
-import Button from '../../components/Button/Button';
-import useFormValidation from '../../hooks/useFormValidation';
 import FormControl from '../../components/FormControl/FormControl';
+import Button from '../../components/Button/Button';
+import {
+  useEmailValidation,
+  usePasswordValidation,
+} from '../../hooks/useFormValidation';
+import { signIn } from '../../api/auth';
 
 function SignIn() {
-  const {
-    email,
-    setEmail,
-    password,
-    setPassword,
-    emailError,
-    passwordError,
-    validateEmail,
-    validatePassword,
-  } = useFormValidation();
+  const { email, setEmail, emailError, isValidEmail } = useEmailValidation();
+
+  const { password, setPassword, passwordError, isValidPassword } =
+    usePasswordValidation();
+
+  const navigate = useNavigate();
+  const isDisabled = !isValidEmail || !isValidPassword;
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    validateEmail();
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    validatePassword();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // 이메일 유효성 검사
-    const isEmailValid = validateEmail();
-    // 비밀번호 유효성 검사
-    const isPasswordValid = validatePassword();
-
-    if (isEmailValid && isPasswordValid) {
-      console.log('submitted', { email, password });
-      // 로그인 처리 로직 구현
+    if (isValidEmail && isValidPassword) {
+      const result = await signIn(email, password);
+      if (result.success) {
+        alert('로그인이 완료되었습니다.');
+        navigate('/todo');
+      } else {
+        alert('로그인 실패');
+      }
     }
   };
-
-  const isDisabled = !email.includes('@') || password.length < 8;
 
   return (
     <div className={classes.container}>
@@ -51,20 +48,20 @@ function SignIn() {
             type="email"
             id="email"
             value={email}
-            onChange={handleEmailChange}
             required
-            errorMessage={emailError}
+            onChange={handleEmailChange}
             data-testid="email-input"
+            errorMessage={emailError}
           />
           <FormControl
             label="비밀번호"
             type="password"
             id="password"
             value={password}
-            onChange={handlePasswordChange}
             required
-            errorMessage={passwordError}
+            onChange={handlePasswordChange}
             data-testid="password-input"
+            errorMessage={passwordError}
           />
           <Button type="submit" testId="signin-button" disabled={isDisabled}>
             로그인

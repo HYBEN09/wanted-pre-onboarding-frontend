@@ -27,3 +27,25 @@ export const signUp = async (email, password) => {
     return { success: false, error };
   }
 };
+
+// signIn
+export const signIn = async (email, password) => {
+  try {
+    const response = await api.post('auth/signin', {
+      email,
+      password,
+    });
+
+    if (response.status === 200) {
+      const token = response.data.access_token;
+      window.localStorage.setItem('token', token);
+      return { success: true };
+    } else {
+      console.error('로그인 실패:', response);
+      return { success: false, error: response };
+    }
+  } catch (error) {
+    console.error('로그인 중 오류가 발생:', error);
+    return { success: false, error };
+  }
+};
