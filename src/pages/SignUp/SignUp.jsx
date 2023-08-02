@@ -1,46 +1,43 @@
+import {
+  useEmailValidation,
+  usePasswordValidation,
+} from '../../hooks/useFormValidation';
+import { signUp } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
 import classes from '../SignIn/SignIn.module.css';
 import Button from '../../components/Button/Button';
 import FormControl from '../../components/FormControl/FormControl';
-import useFormValidation from '../../hooks/useFormValidation';
 
 function SignUp() {
   const navigate = useNavigate();
-  const {
-    email,
-    setEmail,
-    password,
-    setPassword,
-    emailError,
-    passwordError,
-    validateEmail,
-    validatePassword,
-  } = useFormValidation();
+  const { email, setEmail, emailError, isValidEmail } = useEmailValidation();
+  const { password, setPassword, passwordError, isValidPassword } =
+    usePasswordValidation();
+
+  const isDisabled = !(isValidEmail && isValidPassword);
 
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    validateEmail(); // 실시간 검사 추가
+    const inputEmail = e.target.value;
+    setEmail(inputEmail);
   };
 
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    validatePassword(); // 실시간 검사 추가
+    const inputPassword = e.target.value;
+    setPassword(inputPassword);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const isEmailValid = validateEmail();
-    const isPasswordValid = validatePassword();
-
-    if (isEmailValid && isPasswordValid) {
-      console.log('submitted', { email, password });
-
-      navigate('/signin');
+    if (isValidEmail && isValidPassword) {
+      const result = await signUp(email, password);
+      if (result.success) {
+        alert('회원가입이 완료되었습니다.');
+        navigate('/signin');
+      } else {
+        console.error('회원가입 중 오류가 발생:', result.error);
+      }
     }
   };
-
-  const isDisabled = !email.includes('@') || password.length < 8;
 
   return (
     <div className={classes.container}>
