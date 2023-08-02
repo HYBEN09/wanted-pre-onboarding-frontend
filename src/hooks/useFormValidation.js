@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const useFormValidation = () => {
+// Email Validation
+export function useEmailValidation() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [isValidEmail, setIsValidEmail] = useState(false);
+
+  useEffect(() => {
+    setIsValidEmail(validateEmail(email));
+  }, [email]);
 
   const validateEmail = (inputEmail) => {
     if (!inputEmail.includes('@')) {
@@ -16,6 +20,19 @@ const useFormValidation = () => {
     }
   };
 
+  return { email, setEmail, emailError, isValidEmail };
+}
+
+// Password Validation
+export function usePasswordValidation() {
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [isValidPassword, setIsValidPassword] = useState(false);
+
+  useEffect(() => {
+    setIsValidPassword(validatePassword(password));
+  }, [password]);
+
   const validatePassword = (inputPassword) => {
     if (inputPassword.length < 8) {
       setPasswordError('비밀번호는 8자 이상이어야 합니다.');
@@ -26,16 +43,5 @@ const useFormValidation = () => {
     }
   };
 
-  return {
-    email,
-    setEmail,
-    password,
-    setPassword,
-    emailError,
-    passwordError,
-    validateEmail,
-    validatePassword,
-  };
-};
-
-export default useFormValidation;
+  return { password, setPassword, passwordError, isValidPassword };
+}
