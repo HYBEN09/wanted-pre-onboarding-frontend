@@ -8,10 +8,20 @@ import classes from './Todo.module.css';
 import { useCallback, useEffect, useState } from 'react';
 import CreateTodo from '../../components/TodoItem/CreateTodo';
 import TodoItem from '../../components/TodoItem/TodoItem';
+import { useNavigate } from 'react-router-dom';
 
 const ToDo = () => {
   const [todoInput, setTodoInput] = useState('');
   const [todoList, setTodoList] = useState([]);
+
+  const navigate = useNavigate();
+  const isLoggedIn = window.localStorage.getItem('token') !== null;
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/signin');
+    }
+  }, [isLoggedIn, navigate]);
 
   const addTodo = async () => {
     await createTodo(todoInput);
