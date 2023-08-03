@@ -1,0 +1,27 @@
+.todoHeader {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.todoList {
+  padding: 30px 20px;
+  border-radius: 8px;
+  width: 400px;
+  margin: 20px auto;
+  background: #fff;
+  min-height: 40vh;
+}
+
+.ul {
+  list-style: none;
+  width: 280px;
+  margin: 10px auto;
+  padding: 0;
+}
+
+.list {
+  margin-bottom: 6px;
+  margin-left: -2px;
+  padding: 6px 0;
+}
