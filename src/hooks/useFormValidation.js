@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // Email Validation
 export function useEmailValidation() {
@@ -6,21 +6,17 @@ export function useEmailValidation() {
   const [emailError, setEmailError] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(false);
 
-  useEffect(() => {
-    setIsValidEmail(validateEmail(email));
-  }, [email]);
-
   const validateEmail = (inputEmail) => {
     if (!inputEmail.includes('@')) {
       setEmailError('이메일 형식이 올바르지 않습니다.');
-      return false;
+      setIsValidEmail(false);
     } else {
       setEmailError('');
-      return true;
+      setIsValidEmail(true);
     }
   };
 
-  return { email, setEmail, emailError, isValidEmail };
+  return { email, setEmail, emailError, isValidEmail, validateEmail };
 }
 
 // Password Validation
@@ -29,19 +25,22 @@ export function usePasswordValidation() {
   const [passwordError, setPasswordError] = useState('');
   const [isValidPassword, setIsValidPassword] = useState(false);
 
-  useEffect(() => {
-    setIsValidPassword(validatePassword(password));
-  }, [password]);
-
   const validatePassword = (inputPassword) => {
-    if (inputPassword.length < 8) {
-      setPasswordError('비밀번호는 8자 이상이어야 합니다.');
-      return false;
-    } else {
+    const minLength = 8;
+    if (inputPassword.length >= minLength) {
       setPasswordError('');
-      return true;
+      setIsValidPassword(true);
+    } else {
+      setPasswordError(`비밀번호는 최소 ${minLength}자 이상이어야 합니다.`);
+      setIsValidPassword(false);
     }
   };
 
-  return { password, setPassword, passwordError, isValidPassword };
+  return {
+    password,
+    setPassword,
+    passwordError,
+    isValidPassword,
+    validatePassword,
+  };
 }

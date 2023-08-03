@@ -1,28 +1,35 @@
-import { useNavigate } from 'react-router-dom';
-import classes from './SignIn.module.css';
-import FormControl from '../../components/FormControl/FormControl';
-import Button from '../../components/Button/Button';
 import {
   useEmailValidation,
   usePasswordValidation,
 } from '../../hooks/useFormValidation';
 import { signIn } from '../../api/auth';
+import classes from './SignIn.module.css';
+import { useNavigate } from 'react-router-dom';
+import Button from '../../components/Button/Button';
+import FormControl from '../../components/FormControl/FormControl';
 
 function SignIn() {
-  const { email, setEmail, emailError, isValidEmail } = useEmailValidation();
-
-  const { password, setPassword, passwordError, isValidPassword } =
-    usePasswordValidation();
+  const { email, setEmail, emailError, isValidEmail, validateEmail } =
+    useEmailValidation();
+  const {
+    password,
+    setPassword,
+    passwordError,
+    isValidPassword,
+    validatePassword,
+  } = usePasswordValidation();
 
   const navigate = useNavigate();
   const isDisabled = !isValidEmail || !isValidPassword;
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+    validateEmail(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    validatePassword(e.target.value);
   };
 
   const handleSubmit = async (e) => {

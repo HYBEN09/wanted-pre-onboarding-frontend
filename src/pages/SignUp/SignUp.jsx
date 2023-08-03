@@ -10,20 +10,28 @@ import FormControl from '../../components/FormControl/FormControl';
 
 function SignUp() {
   const navigate = useNavigate();
-  const { email, setEmail, emailError, isValidEmail } = useEmailValidation();
-  const { password, setPassword, passwordError, isValidPassword } =
-    usePasswordValidation();
+  const { email, setEmail, emailError, isValidEmail, validateEmail } =
+    useEmailValidation();
+  const {
+    password,
+    setPassword,
+    passwordError,
+    isValidPassword,
+    validatePassword,
+  } = usePasswordValidation();
 
   const isDisabled = !(isValidEmail && isValidPassword);
 
   const handleEmailChange = (e) => {
     const inputEmail = e.target.value;
     setEmail(inputEmail);
+    validateEmail(inputEmail);
   };
 
   const handlePasswordChange = (e) => {
     const inputPassword = e.target.value;
     setPassword(inputPassword);
+    validatePassword(inputPassword);
   };
 
   const handleSubmit = async (e) => {
