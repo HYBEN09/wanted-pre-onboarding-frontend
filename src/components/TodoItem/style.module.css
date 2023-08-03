@@ -1,0 +1,49 @@
+.formWrapper {
+  text-align: center;
+}
+
+.formInput {
+  width: 230px;
+  padding: 10px 14px;
+  border: 2px solid #89ade6;
+  border-radius: 4px;
+}
+
+.formBtn {
+  margin-left: 10px;
+  padding: 11px 12px;
+  border: 0;
+  font-weight: 600;
+  border-radius: 3px;
+  background: #89ade6;
+  color: #ffffff;
+}
+
+.todoInput {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #89ade6;
+}
+
+.todoText {
+  flex-grow: 1;
+  padding: 8px;
+}
+
+.todoForm {
+  display: flex;
+}
+
+.updateInput {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.todoButton {
+  margin-left: 3px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: #e9e9e9;
+}
