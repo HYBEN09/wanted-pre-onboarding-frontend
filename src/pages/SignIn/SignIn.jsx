@@ -4,7 +4,6 @@ import {
 } from '../../hooks/useFormValidation';
 import { signIn } from '../../api/auth';
 import classes from './SignIn.module.css';
-import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import FormControl from '../../components/FormControl/FormControl';
 
@@ -19,7 +18,6 @@ function SignIn() {
     validatePassword,
   } = usePasswordValidation();
 
-  const navigate = useNavigate();
   const isDisabled = !isValidEmail || !isValidPassword;
 
   const handleEmailChange = (e) => {
@@ -38,7 +36,7 @@ function SignIn() {
       const result = await signIn(email, password);
       if (result.success) {
         alert('로그인이 완료되었습니다.');
-        navigate('/todo');
+        window.location.replace('/todo');
       } else {
         alert('로그인 실패');
       }

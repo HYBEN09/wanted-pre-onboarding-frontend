@@ -1,5 +1,9 @@
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 /* PAGES -------------------------------------------------------------------- */
 const RootLayout = lazy(() => import('./pages/Layout/Layout'));
@@ -10,6 +14,7 @@ const SignUp = lazy(() => import('./pages/SignUp/SignUp'));
 const Todo = lazy(() => import('./pages/Todo/Todo'));
 
 /* ROUTES ------------------------------------------------------------------- */
+const token = localStorage.getItem('token');
 
 const router = createBrowserRouter([
   {
@@ -24,7 +29,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/signin',
-        element: <SignIn />,
+        element: token ? <Navigate to="/todo" /> : <SignIn />,
       },
       {
         path: '/signup',
@@ -32,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/todo',
-        element: <Todo />,
+        element: !token ? <Navigate to="/signin" /> : <Todo />,
       },
     ],
   },
@@ -45,5 +50,4 @@ function App() {
     </Suspense>
   );
 }
-
 export default App;
