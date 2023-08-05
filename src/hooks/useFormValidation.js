@@ -26,12 +26,12 @@ export function usePasswordValidation() {
   const [isValidPassword, setIsValidPassword] = useState(false);
 
   const validatePassword = (inputPassword) => {
-    const minLength = 8;
-    if (inputPassword.length >= minLength) {
+    const MIN_LENGTH = 8;
+    if (inputPassword.length >= MIN_LENGTH) {
       setPasswordError('');
       setIsValidPassword(true);
     } else {
-      setPasswordError(`비밀번호는 최소 ${minLength}자 이상이어야 합니다.`);
+      setPasswordError(`비밀번호는 최소 ${MIN_LENGTH}자 이상이어야 합니다.`);
       setIsValidPassword(false);
     }
   };
