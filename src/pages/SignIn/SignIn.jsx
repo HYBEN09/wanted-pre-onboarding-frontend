@@ -6,10 +6,8 @@ import { signIn } from '../../api/auth';
 import classes from './SignIn.module.css';
 import Button from '../../components/Button/Button';
 import FormControl from '../../components/FormControl/FormControl';
-import { Navigate, useNavigate } from 'react-router-dom';
 
 function SignIn() {
-  const navigate = useNavigate();
   const { email, setEmail, emailError, isValidEmail, validateEmail } =
     useEmailValidation();
   const {
