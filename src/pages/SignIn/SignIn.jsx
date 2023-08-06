@@ -6,8 +6,10 @@ import { signIn } from '../../api/auth';
 import classes from './SignIn.module.css';
 import Button from '../../components/Button/Button';
 import FormControl from '../../components/FormControl/FormControl';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function SignIn() {
+  const navigate = useNavigate();
   const { email, setEmail, emailError, isValidEmail, validateEmail } =
     useEmailValidation();
   const {
@@ -36,7 +38,7 @@ function SignIn() {
       const result = await signIn(email, password);
       if (result.success) {
         alert('로그인이 완료되었습니다.');
-        window.location.replace('/todo');
+        return (window.location.href = '/todo');
       } else {
         alert('로그인 실패');
       }
