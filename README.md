@@ -7,9 +7,7 @@
 ## 1. 데모 영상
 
 
-https://github.com/HYBEN09/wanted-pre-onboarding-frontend/assets/104710243/cc06e4a2-eb01-4ea0-befb-e405f25918be
-
-
+https://github.com/HYBEN09/wanted-pre-onboarding-frontend/assets/104710243/d2641995-44d9-4f09-bdaa-ddacf3a2b4c2
 
 ## 2. 사용 스택
 
