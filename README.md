@@ -2,8 +2,7 @@
 
 원티드 프리온보딩 프론트엔드 과정 선발 과제 
 
-### 📌 배포 주소 :  https://main--wanted-pre-onboarding09.netlify.app/
-
+### 📌 배포 주소 :  https://wanted-pre-onboarding-frontend-nine-fawn.vercel.app/
 ## 1. 데모 영상
 
 
